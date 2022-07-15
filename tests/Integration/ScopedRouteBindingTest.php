@@ -17,7 +17,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
                 function (Foo $foo, FooRelation $fooRelation) {
                     return [$foo, $fooRelation];
                 }
-            );
+            )->scopeBindings();
 
         $foo = Foo::create();
         $foo->fooRelations()->attach($fooRelation = FooRelation::create());
@@ -37,7 +37,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
                 function (Foo $foo, FooRelation $fooRelation) {
                     return [$foo, $fooRelation];
                 }
-            );
+            )->scopeBindings();
 
         $foo = Foo::create();
         $foo->fooRelations()->attach($fooRelation = FooRelation::create());
@@ -57,7 +57,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
                 function (Foo $foo, FooRelation $fooRelation) {
                     return [$foo, $fooRelation];
                 }
-            );
+            )->scopeBindings();
 
         $foo = Foo::create();
         $foo->fooRelations()->attach($fooRelation = FooRelation::create());
@@ -77,7 +77,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
                 function (Foo $foo, FooRelation $fooRelation) {
                     return [$foo, $fooRelation];
                 }
-            );
+            )->scopeBindings();
 
         $foo = Foo::create();
         $foo->fooRelations()->attach($fooRelation = FooRelation::create());
