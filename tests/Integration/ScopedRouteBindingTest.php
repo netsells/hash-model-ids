@@ -26,7 +26,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
             ->assertNotFound();
 
         $this->json('GET', url("foos/$foo->hashed_id/foo-relations/$fooRelation->hashed_id"))
-            ->assertOK();
+            ->assertOk();
     }
 
     public function testScopedRouteBindingWithIdKey(): void
@@ -43,7 +43,7 @@ class ScopedRouteBindingTest extends AbstractIntegrationTest
         $foo->fooRelations()->attach($fooRelation = FooRelation::create());
 
         $this->json('GET', url("foos/$foo->hashed_id/foo-relations/$fooRelation->id"))
-            ->assertOK();
+            ->assertOk();
 
         $this->json('GET', url("foos/$foo->hashed_id/foo-relations/$fooRelation->hashed_id"))
             ->assertNotFound();

@@ -17,7 +17,7 @@ class RouteBindingTest extends AbstractIntegrationTest
 
         $foo = Foo::create();
 
-        $this->json('GET', url("foos/$foo->id"))->assertOK();
+        $this->json('GET', url("foos/$foo->id"))->assertOk();
         $this->json('GET', url("foos/$foo->hashed_id"))->assertNotFound();
     }
 
@@ -31,7 +31,7 @@ class RouteBindingTest extends AbstractIntegrationTest
         $foo = Foo::create();
 
         $this->json('GET', url("foos/$foo->id"))->assertNotFound();
-        $this->json('GET', url("foos/$foo->hashed_id"))->assertOK();
+        $this->json('GET', url("foos/$foo->hashed_id"))->assertOk();
     }
 
     public function testRouteBindingWithoutKey(): void
@@ -44,6 +44,6 @@ class RouteBindingTest extends AbstractIntegrationTest
         $foo = Foo::create();
 
         $this->json('GET', url("foos/$foo->id"))->assertNotFound();
-        $this->json('GET', url("foos/$foo->hashed_id"))->assertOK();
+        $this->json('GET', url("foos/$foo->hashed_id"))->assertOk();
     }
 }
