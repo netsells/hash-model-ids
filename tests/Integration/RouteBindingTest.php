@@ -6,7 +6,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 use Netsells\HashModelIds\Tests\Integration\fixtures\Models\Foo;
 
-class RoutingBindingTest extends AbstractIntegrationTest
+class RouteBindingTest extends AbstractIntegrationTest
 {
     public function testRouteBindingWithIdKey(): void
     {
@@ -17,7 +17,7 @@ class RoutingBindingTest extends AbstractIntegrationTest
 
         $foo = Foo::create();
 
-        $this->json('GET', url("foos/$foo->id"))->assertOK();
+        $this->json('GET', url("foos/$foo->id"))->assertOk();
         $this->json('GET', url("foos/$foo->hashed_id"))->assertNotFound();
     }
 
@@ -31,7 +31,7 @@ class RoutingBindingTest extends AbstractIntegrationTest
         $foo = Foo::create();
 
         $this->json('GET', url("foos/$foo->id"))->assertNotFound();
-        $this->json('GET', url("foos/$foo->hashed_id"))->assertOK();
+        $this->json('GET', url("foos/$foo->hashed_id"))->assertOk();
     }
 
     public function testRouteBindingWithoutKey(): void
@@ -44,6 +44,6 @@ class RoutingBindingTest extends AbstractIntegrationTest
         $foo = Foo::create();
 
         $this->json('GET', url("foos/$foo->id"))->assertNotFound();
-        $this->json('GET', url("foos/$foo->hashed_id"))->assertOK();
+        $this->json('GET', url("foos/$foo->hashed_id"))->assertOk();
     }
 }

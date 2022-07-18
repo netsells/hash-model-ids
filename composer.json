@@ -1,11 +1,24 @@
 {
     "name": "netsells/hash-model-ids",
+    "description": "Dynamically create a hash of an Eloquent model id value to avoid exposing a record's actual database id.",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "netsells",
+        "eloquent",
+        "ids",
+        "hashids",
+        "dynamic"
+    ],
     "authors": [
         {
             "name": "Tom Moore",
             "email": "tom.moore@netsells.co.uk"
+        },
+        {
+            "name": "Sam Jordan",
+            "email": "sam.jordan@netsells.co.uk"
         }
     ],
     "require": {

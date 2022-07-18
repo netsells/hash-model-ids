@@ -3,7 +3,6 @@
 namespace Netsells\HashModelIds;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property-read string $hashed_id
@@ -18,13 +17,13 @@ trait HashesModelIdsTrait
         return 'hashed_id';
     }
 
-    public function resolveRouteBinding($value, $field = null): ?Model
+    public function resolveRouteBindingQuery($query, $value, $field = null)
     {
-        if ($field === 'hashed_id' || (is_null($field) && $this->getRouteKeyName() === 'hashed_id')) {
-            return $this->whereHashedId($value)->first();
+        if (str_ends_with($field ?? $this->getRouteKeyName(), 'hashed_id')) {
+            return $query->whereHashedId($value);
         }
 
-        return parent::resolveRouteBinding($value, $field);
+        return parent::resolveRouteBindingQuery($query, $value, $field);
     }
 
     protected function getHashedIdAttribute(): string

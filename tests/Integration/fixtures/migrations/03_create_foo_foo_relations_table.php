@@ -12,10 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('foos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::create('foo_foo_relation', function (Blueprint $table) {
+            $table->foreignId('foo_id')
+                ->constrained();
+
+            $table->foreignId('foo_relation_id')
+                ->constrained();
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('foos');
+        Schema::dropIfExists('foo_foo_relation');
     }
 };

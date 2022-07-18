@@ -3,15 +3,16 @@
 namespace Netsells\HashModelIds\Tests\Integration\fixtures\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Netsells\HashModelIds\HashesModelIdsTrait;
 
-class Foo extends Model
+class Trashed extends Model
 {
     use HashesModelIdsTrait;
+    use SoftDeletes;
 
-    public function fooRelations(): BelongsToMany
+    public function newQuery()
     {
-        return $this->belongsToMany(FooRelation::class);
+        return parent::newQuery()->withTrashed();
     }
 }
