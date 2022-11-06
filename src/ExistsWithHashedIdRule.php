@@ -3,14 +3,33 @@
 namespace Netsells\HashModelIds;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Traits\ForwardsCalls;
 use InvalidArgumentException;
 
-class ModelWithHashedIdExistsRule implements Rule
+/**
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
+class ExistsWithHashedIdRule implements Rule
 {
+    use ForwardsCalls;
+
     private string $class;
 
-    private $constraints = null;
+    private array $constraints = [];
+
+    /**
+     * Make a new rule instance fluently.
+     *
+     * @param string $class
+     *
+     * @return self
+     */
+    public static function make(string $class): self
+    {
+        return new self($class);
+    }
 
     /**
      * Create a new rule instance.
@@ -33,20 +52,6 @@ class ModelWithHashedIdExistsRule implements Rule
     }
 
     /**
-     * Accept any additional constraints chained to a rule instance.
-     *
-     * @param callable $constraints
-     *
-     * @return self
-     */
-    public function where(callable $constraints): self
-    {
-        $this->constraints = $constraints;
-
-        return $this;
-    }
-
-    /**
      * Determine if the validation rule passes.
      *
      * @param  string  $attribute
@@ -60,7 +65,9 @@ class ModelWithHashedIdExistsRule implements Rule
         }
 
         return $this->class::whereHashedId($value)
-            ->when($this->constraints, $this->constraints ?? fn ($query) => $query)
+            ->tap(function (Builder $query) {
+                $this->applyConstraints($query);
+            })
             ->exists();
     }
 
@@ -74,5 +81,29 @@ class ModelWithHashedIdExistsRule implements Rule
         return __('hashModelIds::validation.model_not_exist_for_hashed_id', [
             'name' => class_basename($this->class),
         ]);
+    }
+
+    /**
+     * Add query builder constraints to the rule.
+     *
+     * @param string $method
+     * @param mixed $parameters
+     *
+     * @return self
+     */
+    public function __call(string $method, array $parameters): self
+    {
+        $this->constraints[$method][] = $parameters;
+
+        return $this;
+    }
+
+    private function applyConstraints(Builder $query): void
+    {
+        foreach ($this->constraints as $method => $constraint) {
+            foreach ($constraint as $parameters) {
+                $this->forwardCallTo($query, $method, $parameters);
+            }
+        }
     }
 }

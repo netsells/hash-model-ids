@@ -30,16 +30,17 @@ Use the `HashesModelIdsTrait` in an Eloquent model to enable the following funct
     
     $url = url("models/$model->hashed_id");
     ```
- * Check for model existence in form request classes using a bespoke rule, optionally including additional constraints:
+ * Check for model existence in form request classes using a bespoke rule, optionally including additional chained constraints:
     ```php
     public function rules()
     {
         return [
             'hashed_id' => [
-                (new ModelWithHashedIdExistsRule(Model::class))
+                ExistsWithHashedIdRule::make(Model::class)
                     ->where(function ($query) {
                         $query->where('type', 'test');
-                    }),
+                    })
+                    ->where('foo', 'bar'),
             ],
         ];
     }
