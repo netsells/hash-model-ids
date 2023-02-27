@@ -19,6 +19,6 @@ abstract class AbstractIntegrationTest extends TestCase
 
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('hash_model_ids.salt', 'test-salt');
+        $app['config']->set('hash-model-ids.salt', 'test-salt');
     }
 }
