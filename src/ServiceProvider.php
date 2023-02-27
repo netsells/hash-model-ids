@@ -2,6 +2,7 @@
 
 namespace Netsells\HashModelIds;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -19,12 +20,19 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton(ModelIdHasherInterface::class, function ($app) {
-            return new ModelIdHasher([
-                'salt' => config('hash-model-ids.salt'),
-                'min_hash_length' => config('hash-model-ids.min_hash_length'),
-                'alphabet' => config('hash-model-ids.alphabet'),
-            ]);
+            return $this->shouldOverrideHasher($app)
+                ? new ModelIdHasherOverride()
+                : new ModelIdHasher([
+                    'salt' => config('hash-model-ids.salt'),
+                    'min_hash_length' => config('hash-model-ids.min_hash_length'),
+                    'alphabet' => config('hash-model-ids.alphabet'),
+                ]);
         });
+    }
+
+    private function shouldOverrideHasher(Application $app): bool
+    {
+        return ! $app->isProduction() && config('hash-model-ids.override', false);
     }
 
     /**

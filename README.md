@@ -59,13 +59,16 @@ Publish the package config file:
 
 Optionally set a `HASH_MODEL_IDS_SALT` in `.env`.
 
-
 ## Translations
 
 Publish the package translations file:
 
 `php artisan vendor:publish --tag=hash-model-ids-lang`
 
+
+## Development
+
+Sometimes, during development, it can be awkward dealing with hashed ids. Set `HASH_MODEL_IDS_OVERRIDE=true` in your environment file to override the hashing instance to use the actual id of a model instead.
 
 ## Testing
 
