@@ -4,8 +4,8 @@ namespace Netsells\HashModelIds\Tests\Integration;
 
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
-use Netsells\HashModelIds\Tests\Integration\fixtures\Models\Foo;
-use Netsells\HashModelIds\Tests\Integration\fixtures\Models\FooRelation;
+use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Foo;
+use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\FooRelation;
 
 class ScopedRouteBindingTest extends AbstractIntegrationTest
 {

@@ -4,7 +4,7 @@ namespace Netsells\HashModelIds\Tests\Integration;
 
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
-use Netsells\HashModelIds\Tests\Integration\fixtures\Models\Trashed;
+use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Trashed;
 
 class WithTrashedScopeTest extends AbstractIntegrationTest
 {

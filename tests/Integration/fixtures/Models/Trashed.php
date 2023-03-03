@@ -1,6 +1,6 @@
 <?php
 
-namespace Netsells\HashModelIds\Tests\Integration\fixtures\Models;
+namespace Netsells\HashModelIds\Tests\Integration\Fixtures\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

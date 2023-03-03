@@ -14,7 +14,7 @@ abstract class AbstractIntegrationTest extends TestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/fixtures/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Fixtures/migrations');
     }
 
     protected function defineEnvironment($app): void

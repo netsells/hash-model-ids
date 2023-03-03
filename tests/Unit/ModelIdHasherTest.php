@@ -5,7 +5,7 @@ namespace Netsells\HashModelIds\Tests\Unit;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Netsells\HashModelIds\ModelIdHasher;
-use Netsells\HashModelIds\Tests\Unit\fixtures\Models;
+use Netsells\HashModelIds\Tests\Unit\Fixtures\Models;
 use PHPUnit\Framework\TestCase;
 
 class ModelIdHasherTest extends TestCase

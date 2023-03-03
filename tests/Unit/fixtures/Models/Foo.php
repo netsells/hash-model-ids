@@ -1,6 +1,6 @@
 <?php
 
-namespace Netsells\HashModelIds\Tests\Unit\fixtures\Models;
+namespace Netsells\HashModelIds\Tests\Unit\Fixtures\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

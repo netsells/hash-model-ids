@@ -5,7 +5,7 @@ namespace Netsells\HashModelIds\Tests\Integration;
 use Illuminate\Database\Eloquent\Builder;
 use InvalidArgumentException;
 use Netsells\HashModelIds\ExistsWithHashedIdRule;
-use Netsells\HashModelIds\Tests\Integration\fixtures\Models;
+use Netsells\HashModelIds\Tests\Integration\Fixtures\Models;
 
 class ExistsWithHashedIdRuleTest extends AbstractIntegrationTest
 {
