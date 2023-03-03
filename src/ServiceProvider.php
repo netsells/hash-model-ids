@@ -20,8 +20,8 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton(ModelIdHasherInterface::class, function ($app) {
-            return $this->shouldOverrideHasher($app)
-                ? new ModelIdHasherOverride()
+            return ! $this->shouldHashIds($app)
+                ? new ModelIdPrefixer(config('hash-model-ids.prefix', ModelIdPrefixer::DEFAULT_PREFIX))
                 : new ModelIdHasher([
                     'salt' => config('hash-model-ids.salt'),
                     'min_hash_length' => config('hash-model-ids.min_hash_length'),
@@ -30,9 +30,9 @@ class ServiceProvider extends BaseServiceProvider
         });
     }
 
-    private function shouldOverrideHasher(Application $app): bool
+    private function shouldHashIds(Application $app): bool
     {
-        return ! $app->isProduction() && config('hash-model-ids.override', false);
+        return $app->isProduction() || config('hash-model-ids.enabled', true);
     }
 
     /**

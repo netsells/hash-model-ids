@@ -2,9 +2,10 @@
 
 namespace Netsells\HashModelIds\Tests\Integration;
 
+use Netsells\HashModelIds\ModelIdPrefixer;
 use Netsells\HashModelIds\Tests\Integration\fixtures\Models\Foo;
 
-class HasherOverrideTest extends AbstractIntegrationTest
+class PrefixedModelIdTest extends AbstractIntegrationTest
 {
     private Foo $foo;
 
@@ -19,21 +20,26 @@ class HasherOverrideTest extends AbstractIntegrationTest
     {
         parent::defineEnvironment($app);
 
-        $app['config']->set('hash-model-ids.override', true);
+        $app['config']->set('hash-model-ids.enabled', false);
     }
 
-    public function testHashedIdAttributeReturnsActualId(): void
+    public function testHashedIdAttributeReturnsActualIdWithPrefix(): void
     {
         $this->assertNotNull($this->foo->getKey());
-        $this->assertEquals($this->foo->getKey(), $this->foo->hashed_id);
+        $this->assertSame($this->getPrefixedId(), $this->foo->hashed_id);
     }
 
     public function testScopeWhereHashedId(): void
     {
-        $hash = $this->foo->getKey();
+        $hashedId = $this->getPrefixedId();
 
-        $foo = Foo::whereHashedId($hash)->first();
+        $foo = Foo::whereHashedId($hashedId)->first();
 
         $this->assertTrue($foo->is($this->foo));
+    }
+
+    private function getPrefixedId(): string
+    {
+        return ModelIdPrefixer::DEFAULT_PREFIX . $this->foo->getKey();
     }
 }

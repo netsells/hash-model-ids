@@ -68,7 +68,7 @@ Publish the package translations file:
 
 ## Development
 
-Sometimes, during development, it can be awkward dealing with hashed ids. Set `HASH_MODEL_IDS_OVERRIDE=true` in your environment file to override the hashing instance to use the actual id of a model instead.
+Sometimes, during development, it can be awkward dealing with hashed ids. Set `HASH_MODEL_IDS_ENABLED=false` in your environment file to enable use of a (configurable) prefixed version of a model's actual id rather than the default hashed version.
 
 ## Testing
 
