@@ -2,7 +2,7 @@
 
 namespace Netsells\HashModelIds\Tests\Integration;
 
-use Netsells\HashModelIds\Tests\Integration\fixtures\Models\Foo;
+use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Foo;
 
 class HashedModelIdTest extends AbstractIntegrationTest
 {

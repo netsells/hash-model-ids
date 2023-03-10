@@ -14,11 +14,11 @@ abstract class AbstractIntegrationTest extends TestCase
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/fixtures/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Fixtures/migrations');
     }
 
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('hash_model_ids.salt', 'test-salt');
+        $app['config']->set('hash-model-ids.salt', 'test-salt');
     }
 }
