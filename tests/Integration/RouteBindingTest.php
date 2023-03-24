@@ -6,7 +6,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Foo;
 
-class RouteBindingTest extends AbstractIntegrationTest
+class RouteBindingTest extends AbstractIntegrationTestCase
 {
     public function testRouteBindingWithIdKey(): void
     {

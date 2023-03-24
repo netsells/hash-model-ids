@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Foo;
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\FooRelation;
 
-class ScopedRouteBindingTest extends AbstractIntegrationTest
+class ScopedRouteBindingTest extends AbstractIntegrationTestCase
 {
     public function testScopedRouteBindingWithoutKeys(): void
     {

@@ -6,7 +6,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Trashed;
 
-class WithTrashedScopeTest extends AbstractIntegrationTest
+class WithTrashedScopeTest extends AbstractIntegrationTestCase
 {
     public function testModelsWithTrashedScopeCanBeLocated(): void
     {

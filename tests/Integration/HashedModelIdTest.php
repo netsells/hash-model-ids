@@ -4,7 +4,7 @@ namespace Netsells\HashModelIds\Tests\Integration;
 
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models\Foo;
 
-class HashedModelIdTest extends AbstractIntegrationTest
+class HashedModelIdTest extends AbstractIntegrationTestCase
 {
     private Foo $foo;
 
