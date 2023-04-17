@@ -5,7 +5,7 @@ namespace Netsells\HashModelIds\Tests\Integration;
 use Netsells\HashModelIds\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 
-abstract class AbstractIntegrationTest extends TestCase
+abstract class AbstractIntegrationTestCase extends TestCase
 {
     protected function getPackageProviders($app): array
     {

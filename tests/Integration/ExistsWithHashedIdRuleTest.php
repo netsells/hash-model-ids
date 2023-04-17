@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Netsells\HashModelIds\ExistsWithHashedIdRule;
 use Netsells\HashModelIds\Tests\Integration\Fixtures\Models;
 
-class ExistsWithHashedIdRuleTest extends AbstractIntegrationTest
+class ExistsWithHashedIdRuleTest extends AbstractIntegrationTestCase
 {
     public function testRuleExpectsEloquentModels(): void
     {
