@@ -9,6 +9,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
  *
  * @method static \Illuminate\Database\Eloquent\Builder|static whereHashedId(string $hash)
  * @method static \Illuminate\Database\Eloquent\Builder|static whereHashedIds(array $hashes)
+ * @method static \Illuminate\Database\Eloquent\Builder|static whereNotHashedIds(array $hashes)
  */
 trait HashesModelIdsTrait
 {
@@ -41,17 +42,25 @@ trait HashesModelIdsTrait
 
     public function scopeWhereHashedIds(Builder $query, array $hashes): Builder
     {
-        $hasher = $this->getIdHasher();
+        return $query->whereIn($this->qualifyColumn($this->getKeyName()), $this->getDecodedHashes($hashes));
+    }
 
-        $decodedIds = array_map(function (string $hash) use ($hasher) {
-            return $hasher->decode($this, $hash);
-        }, $hashes);
-
-        return $query->whereIn($this->qualifyColumn($this->getKeyName()), $decodedIds);
+    public function scopeWhereNotHashedIds(Builder $query, array $hashes): Builder
+    {
+        return $query->whereNotIn($this->qualifyColumn($this->getKeyName()), $this->getDecodedHashes($hashes));
     }
 
     private function getIdHasher(): ModelIdHasherInterface
     {
         return app(ModelIdHasherInterface::class);
+    }
+
+    private function getDecodedHashes(array $hashes): array
+    {
+        $hasher = $this->getIdHasher();
+
+        return array_map(function (string $hash) use ($hasher) {
+            return $hasher->decode($this, $hash);
+        }, $hashes);
     }
 }
