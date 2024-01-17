@@ -38,4 +38,16 @@ class HashedModelIdTest extends AbstractIntegrationTestCase
 
         $this->assertCount(2, $foos);
     }
+
+    public function testScopeWhereNotHashedIds(): void
+    {
+        $hash = $this->foo->hashed_id;
+        $hash2 = Foo::create()->hashed_id;
+
+        $foos = Foo::whereNotHashedIds([$hash])->get();
+
+        $this->assertCount(1, $foos);
+
+        $this->assertSame($hash2, $foos->first()->hashed_id);
+    }
 }
