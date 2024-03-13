@@ -2,7 +2,6 @@
 
 namespace Netsells\HashModelIds\Tests\Unit;
 
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use Netsells\HashModelIds\ModelIdHasher;
 use Netsells\HashModelIds\Tests\Unit\Fixtures\Models;
@@ -27,8 +26,7 @@ class ModelIdHasherTest extends TestCase
     {
         $idHasher = $this->getNewModelIdHasher();
 
-        /** @var Model|MockObject $model */
-        $model = $this->getMockForAbstractClass(Model::class);
+        $model = new Models\Foo();
 
         $hash = $idHasher->encode($model, 1);
 
@@ -39,11 +37,11 @@ class ModelIdHasherTest extends TestCase
     {
         $idHasher = $this->getNewModelIdHasher();
 
-        /** @var Model|MockObject $foo */
-        $foo = $this->getMockForAbstractClass(Models\Foo::class);
+        /** @var \Illuminate\Database\Eloquent\Model|\PHPUnit\Framework\MockObject\MockObject $foo */
+        $foo = $this->createMock(Models\Foo::class);
 
-        /** @var Model|MockObject $bar */
-        $bar = $this->getMockForAbstractClass(Models\Bar::class);
+        /** @var \Illuminate\Database\Eloquent\Model|\PHPUnit\Framework\MockObject\MockObject $bar */
+        $bar = $this->createMock(Models\Bar::class);
 
         $this->assertNotSame($idHasher->encode($foo, 1), $idHasher->encode($bar, 1));
     }

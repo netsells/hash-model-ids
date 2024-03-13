@@ -2,7 +2,9 @@
 
 namespace Netsells\HashModelIds;
 
+use Closure;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Traits\ForwardsCalls;
@@ -11,7 +13,7 @@ use InvalidArgumentException;
 /**
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class ExistsWithHashedIdRule implements Rule
+class ExistsWithHashedIdRule implements ValidationRule
 {
     use ForwardsCalls;
 
@@ -52,33 +54,41 @@ class ExistsWithHashedIdRule implements Rule
     }
 
     /**
-     * Determine if the validation rule passes.
+     * Run the validation rule.
      *
-     * @param  string  $attribute
+     * @param  string|null  $attribute
      * @param  mixed  $value
-     * @return bool
+     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @return void
      */
-    public function passes($attribute, $value): bool
+    public function validate(?string $attribute, mixed $value, Closure $fail): void
     {
         if (! is_string($value) || empty($value)) {
-            return false;
+            $this->fail($fail);
+
+            return;
         }
 
-        return $this->class::whereHashedId($value)
+        $doesntExist = $this->class::whereHashedId($value)
             ->tap(function (Builder $query) {
                 $this->applyConstraints($query);
             })
-            ->exists();
+            ->doesntExist();
+
+        if ($doesntExist) {
+            $this->fail($fail);
+        }
     }
 
     /**
-     * Get the validation error message.
+     * Fail the validation.
      *
-     * @return string
+     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @return void
      */
-    public function message(): string
+    public function fail(Closure $fail): void
     {
-        return __('hashModelIds::validation.model_not_exist_for_hashed_id', [
+        $fail('hashModelIds::validation.model_not_exist_for_hashed_id')->translate([
             'name' => class_basename($this->class),
         ]);
     }
